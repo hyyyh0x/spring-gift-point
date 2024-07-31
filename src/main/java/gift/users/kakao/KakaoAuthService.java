@@ -34,11 +34,14 @@ public class KakaoAuthService {
     }
 
     public String getKakaoLoginUrl() {
+        Logger logger = LoggerFactory.getLogger(this.getClass());
+        logger.info("getting url: {}", kakaoProperties.authUrl());
         UriComponentsBuilder uriComponentsBuilder = UriComponentsBuilder.fromHttpUrl(
                 kakaoProperties.authUrl())
             .queryParam("response_type", kakaoProperties.loginResponseType())
             .queryParam("client_id", kakaoProperties.clientId())
             .queryParam("redirect_uri", kakaoProperties.redirectUri());
+        logger.info("got url: {}", uriComponentsBuilder.toUriString());
         return uriComponentsBuilder.toUriString();
     }
 
