@@ -4,7 +4,6 @@ BUILD_DIR="/home/ubuntu/spring-gift-point/build/libs"
 DEPLOY_DIR="/home/ubuntu"
 LOG_FILE="/home/ubuntu/deploy.log"
 
-# Find the JAR file
 BUILD_PATH=$(ls $BUILD_DIR/*.jar 2>/dev/null)
 if [ -z "$BUILD_PATH" ]; then
   echo "No JAR file found in $BUILD_DIR" | tee -a $LOG_FILE
