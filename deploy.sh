@@ -1,29 +1,21 @@
 #!/bin/bash
 
-GITHUB_ID = "hyyyh0x"
-APP_NAME = "spring-gift"
-PROJECT_NAME = "spring-gift-point"
-PROJECT_VERSION = "0.0.1"
-REPO_URL = "https://github.com/${GITHUB_ID}/${PROJECT_NAME}"
-BRANCH = "step1_1"
-DIR="/home/ubuntu"
-JAR_FILE="${APP_NAME}-${PROJECT_VERSION}-SNAPSHOT.jar"
+BUILD_PATH=$(ls /home/ubuntu/spring-gift-point/build/libs/*.jar)
+JAR_NAME=$(basename $BUILD_PATH)
 
-port=$(lsof -i :8080 -t)
-if [ -n "$port" ]; then
-    kill -9 $port
-fi
+CURRENT_PID=$(pgrep -f $JAR_NAME)
 
-cd ${DIR}
-
-if [ ! -d "${PROJECT_NAME}" ]; then
-    git clone -b ${BRANCH} --single-branch ${REPO_URL}
+if [ -z $CURRENT_PID ]
+then
+  sleep 1
 else
-    cd ${PROJECT_NAME}
-    git pull origin ${BRANCH}
+  kill -15 $CURRENT_PID
+  sleep 5
 fi
 
-cd ${DIR}/${PROJECT_NAME}
-./gradlew bootJar
-cd build/libs
-java -jar ${JAR_FILE} &
+DEPLOY_PATH=/home/ubuntu/
+cp $BUILD_PATH $DEPLOY_PATH
+cd $DEPLOY_PATH
+
+DEPLOY_JAR=$DEPLOY_PATH$JAR_NAME
+nohup java -jar $DEPLOY_JAR > /home/ubuntu/deploy.log 2>&1 &
