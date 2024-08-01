@@ -18,7 +18,7 @@ public class FilterConfig {
     }
 
     @Bean
-    public FilterRegistrationBean<JwtAuthenticationFilter> filterBean() {
+    public FilterRegistrationBean<JwtAuthenticationFilter> jwtAuthenticationFilter() {
         FilterRegistrationBean<JwtAuthenticationFilter> registrationBean = new FilterRegistrationBean<>(
             new JwtAuthenticationFilter(jwtUtil));
         registrationBean.addUrlPatterns("/api/wishlist/*");
@@ -27,7 +27,7 @@ public class FilterConfig {
     }
 
     @Bean
-    public FilterRegistrationBean<CorsFilter> corsFilter() {
+    public FilterRegistrationBean<CorsFilter> customCorsFilter() {
         FilterRegistrationBean<CorsFilter> registrationBean = new FilterRegistrationBean<>(
             new CorsFilter());
         registrationBean.addUrlPatterns("/*");

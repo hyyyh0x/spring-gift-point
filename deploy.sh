@@ -26,4 +26,4 @@ fi
 cd ${DIR}/${PROJECT_NAME}
 ./gradlew bootJar
 cd build/libs
-nohup java -jar ${JAR_FILE} &
+java -jar ${JAR_FILE} &
