@@ -21,7 +21,7 @@ public class FilterConfig {
     public FilterRegistrationBean<JwtAuthenticationFilter> jwtAuthenticationFilter() {
         FilterRegistrationBean<JwtAuthenticationFilter> registrationBean = new FilterRegistrationBean<>(
             new JwtAuthenticationFilter(jwtUtil));
-        registrationBean.addUrlPatterns("/api/wishlist/*");
+        registrationBean.addUrlPatterns("/api/wishes/*");
         registrationBean.addUrlPatterns("/api/orders/*");
         return registrationBean;
     }
